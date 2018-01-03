@@ -1,10 +1,12 @@
+
+
 // Enemies our player must avoid
 var Enemy = function(X,Y) {
     
     this.sprite = 'images/enemy-bug.png';
-    this.x = X;
+    this.x = -101;
     this.y = Y;
-    this.speed = Math.floor((Math.random() * 3));
+    this.speed = Math.floor((Math.random() * 150));
     
 };
 
@@ -14,13 +16,16 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x > 550) {
-    	this.initialize();
+    this.x += this.speed * dt;
+    if (this.x > 557) {
+    	this.x = -101
+    	this.speed = Math.floor(Math.random() * 200) +100;
     }
-    else {
-    	this.x = this.speed;
-	}
-
+    
+	// Handle collisions
+	//if () {
+	//	this.reset();
+	//}
 };
 
 // Draw the enemy on the screen, required method for game
@@ -66,14 +71,20 @@ Player.prototype.handleInput = function(keypress) {
 		this.reset();
 };
 
+var bug1 = new Enemy(-101, 59);
+var bug2 = new Enemy(-101, 142);
+var bug3 = new Enemy(-101, 225);
+
 Player.prototype.reset = function(){
 	this.x = 200;
 	this.y = 391;
 };
 
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-var allEnemies = [];
+var allEnemies = [bug1, bug2, bug3];
 // Place the player object in a variable called player
 var player = new Player(200,391);
 
@@ -87,7 +98,6 @@ document.addEventListener('keyup', function(e) {
         38: 'up',
         39: 'right',
         40: 'down',
-        32: 'space'
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
