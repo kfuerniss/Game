@@ -23,9 +23,10 @@ Enemy.prototype.update = function(dt) {
     }
     
 	// Handle collisions
-	//if () {
-	//	this.reset();
-	//}
+	if (player.y === this.y && player.x <= this.x + 70 && player.x >= this.x - 50) {
+
+		player.reset();
+	}
 };
 
 // Draw the enemy on the screen, required method for game
@@ -52,19 +53,26 @@ Player.prototype.render = function() {
 
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
 Player.prototype.handleInput = function(keypress) {
 	switch (keypress){
 		case 'left':
-			this.x -= 101;
+		    if (this.x > -2){
+				this.x -= 101;
+				}
 			break;
 		case 'right':
-			this.x += 101;
+		    if (this.x < 302){
+				this.x += 101;
+				}
 			break;
 		case 'up':
 			this.y -= 83; 
 			break;
 		case 'down':
-			this.y += 83;
+		    if (this.y < 391){
+				this.y += 83;
+				}
 			break;
 	}
 	if (this.y <= 0)
